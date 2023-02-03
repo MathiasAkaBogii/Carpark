@@ -1,0 +1,99 @@
+﻿@page "/car"
+@using global::Carpark.Business.Repositories.IRepositories;
+@using global::Carpark.Models;
+@inject ICarRepository carRepository
+@inject IJSRuntime jsRuntime
+
+<_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+
+<div class="row mt-4">
+    <div class="">
+        <h4 class="card-title text-primary">Carpark Management</h4>
+    </div>
+    <div class="col-auto">
+        <a href="car/create" class="btn btn-primary form-control">Park new car</a>
+    </div>
+</div>
+
+<div class="col-12 p-3">
+    @if (Cars.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Manufacturer</th>
+                    <th>Model</th>
+                    <th>Valid Ticket</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Cars)
+                {
+                    <tr>
+                        <td>@obj.Manufacturer</td>
+                        <td>@obj.Model</td>
+                        <td>@obj.TicketBought</td>
+                        <td>
+                            <NavLink href="@($"car/edit/{obj.Id}")" class="btn-primary btn">Edit</NavLink>
+                            <button class="btn btn-danger" @onclick="()=>HandleDelete(obj.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        if (IsLoading)
+        {
+            <div class="text-center">
+                <p>Data loading...</p>
+            </div>
+        }
+        else
+        {
+            <p>No records found.</p>
+        }
+    }
+</div>
+
+@code {
+    private IEnumerable<CarDTO> Cars { get; set; } = new List<CarDTO>();
+    public bool IsLoading { get; set; }
+    private int DeleteId { get; set; } = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Load();
+        }
+    }
+
+    private async Task Load()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Cars = await carRepository.GetAllAsync();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private void HandleDelete(int id)
+    {
+        DeleteId = id;
+        jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteId != 0)
+        {
+            await carRepository.RemoveAsync(DeleteId);
+            await Load();
+            await jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading = false;
+    }
+}

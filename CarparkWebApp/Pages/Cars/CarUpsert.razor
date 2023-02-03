@@ -1,0 +1,98 @@
+﻿@page "/car/create"
+@page "/car/edit/{id:int}"
+@using global::Carpark.Business.Repositories.IRepositories;
+@using global::Carpark.Models;
+@inject ICarRepository carRepository
+@inject NavigationManager navigationManager
+
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Car</h3>
+
+    <div class="col-10">
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <p>Data loading...</p>
+            </div>
+        }
+        else
+        {
+            <EditForm Model="@Car" OnValidSubmit="@UpsertObj">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="row">
+                    <div class="form-group col-4 border p-3 mt-4">
+                        <label>Manufacturer</label>
+                        <InputText @bind-Value="@Car.Manufacturer" class="form-control"></InputText>
+                        <ValidationMessage For="()=>Car.Manufacturer"></ValidationMessage>
+
+                        <label>Model</label>
+                        <InputText @bind-Value="@Car.Model" class="form-control"></InputText>
+                        <ValidationMessage For="()=>Car.Model"></ValidationMessage>
+
+                        <label>Valid Ticket</label>
+                        <InputCheckbox @bind-Value="@Car.TicketBought" class="form-check"></InputCheckbox>
+                        <ValidationMessage For="()=>Car.TicketBought"></ValidationMessage>
+                    </div>
+                    <div class="form-group py-2">
+                        <button class="btn btn-primary">@Title</button>
+                        <NavLink href="car" class="btn btn-secondary">Back</NavLink>
+                    </div>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private CarDTO Car { get; set; } = new CarDTO();
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == 0)
+            {
+                //create
+                IsLoading = false;
+            }
+            else
+            {
+                //update
+                Title = "Update";
+                await Load();
+            }
+        }
+
+    }
+
+    private async Task Load()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Car = await carRepository.GetAsync(Id);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertObj()
+    {
+
+        if (Car.Id == 0)
+        {
+            //create
+            await carRepository.CreateAsync(Car);
+        }
+        else
+        {
+            //update
+            await carRepository.UpdateAsync(Car);
+        }
+        navigationManager.NavigateTo("car");
+    }
+}

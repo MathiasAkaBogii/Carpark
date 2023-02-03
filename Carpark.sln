@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpark.WebAPI", "Carpark\Carpark.WebAPI.csproj", "{C977F0D4-79A6-47A8-A44A-7367D0ABE088}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpark.Business", "Carpark.Business\Carpark.Business.csproj", "{9D4D8EDE-316A-4E30-A62F-44982E2A510E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpark.Models", "Carpark.Models\Carpark.Models.csproj", "{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB} = {0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpark.Data", "Carpark.Data\Carpark.Data.csproj", "{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarparkWebApp", "CarparkWebApp\CarparkWebApp.csproj", "{3C2ADA89-0D19-4361-AB13-F45FC1648DD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87} = {2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}
+		{9D4D8EDE-316A-4E30-A62F-44982E2A510E} = {9D4D8EDE-316A-4E30-A62F-44982E2A510E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C977F0D4-79A6-47A8-A44A-7367D0ABE088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C977F0D4-79A6-47A8-A44A-7367D0ABE088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C977F0D4-79A6-47A8-A44A-7367D0ABE088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C977F0D4-79A6-47A8-A44A-7367D0ABE088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D4D8EDE-316A-4E30-A62F-44982E2A510E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D4D8EDE-316A-4E30-A62F-44982E2A510E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D4D8EDE-316A-4E30-A62F-44982E2A510E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D4D8EDE-316A-4E30-A62F-44982E2A510E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F52C744-4AB8-4B2E-8515-EA27DCD2EF87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A44FE0B-65D5-4981-99F5-AE7EA2009FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C2ADA89-0D19-4361-AB13-F45FC1648DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2ADA89-0D19-4361-AB13-F45FC1648DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2ADA89-0D19-4361-AB13-F45FC1648DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2ADA89-0D19-4361-AB13-F45FC1648DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {925D26A6-7318-489E-AC0C-D1E589A23539}
+	EndGlobalSection
+EndGlobal
